@@ -14,10 +14,11 @@ public class RecordSwing implements ActionListener {
 	JTextField inputEmail;
 	JTextField inputQq;
 	JTextField inputSigature;
+	JFrame jfrm;
 	public RecordSwing(){
-		JFrame jfrm = new JFrame("同学录");
+		jfrm = new JFrame("同学录");
 		jfrm.setLayout(new FlowLayout());
-		jfrm.setSize(400, 200);
+		jfrm.setSize(400, 300);
 		jfrm.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		JLabel name = new JLabel("姓名:");
 		inputName = new JTextField(12);
@@ -32,9 +33,11 @@ public class RecordSwing implements ActionListener {
 		JLabel qq = new JLabel("qq:");
 		inputQq = new JTextField(12);
 		JLabel signature = new JLabel("个性签名:");
-		inputSigature = new JTextField(20);
+		inputSigature = new JTextField(25);
 		JButton button = new JButton("确定");
+		JButton button2 = new JButton("返回");
 		button.addActionListener(this);
+		button2.addActionListener(this);
 		jfrm.add(name);
 		jfrm.add(inputName);
 		jfrm.add(address);
@@ -50,6 +53,7 @@ public class RecordSwing implements ActionListener {
 		jfrm.add(signature);
 		jfrm.add(inputSigature);
 		jfrm.add(button);
+		jfrm.add(button2);
 		jfrm.setVisible(true);
 		
 		
@@ -75,6 +79,10 @@ public class RecordSwing implements ActionListener {
 			inputSigature.setText("");
 			Jdbc jdbc =new Jdbc(name,address,phone,wechat,email,qq,signature);
 			jdbc.insert();
+		}
+		if(arg0.getActionCommand().equals("返回")) {
+			jfrm.dispose();
+			SwingDemo swingDemo = new SwingDemo();
 		}
 	}
 }

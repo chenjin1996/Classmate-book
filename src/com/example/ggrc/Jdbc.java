@@ -50,6 +50,28 @@ public class Jdbc {
 			e.printStackTrace();
 		}
 	}
+	public Jdbc(String name) {
+		this.name=name;
+		try {
+			Class.forName(driver);
+		} catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		try {
+			con = (Connection) DriverManager.getConnection(url,user,password);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		try {
+			if(!con.isClosed())
+			    System.out.println("Succeeded connecting to the Database!");
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
     public int insert() {
     	
     	 int i = 0;
