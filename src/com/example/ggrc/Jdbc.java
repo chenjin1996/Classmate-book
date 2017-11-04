@@ -72,6 +72,27 @@ public class Jdbc {
 			e.printStackTrace();
 		}
 	}
+	public Jdbc() {
+		try {
+			Class.forName(driver);
+		} catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		try {
+			con = (Connection) DriverManager.getConnection(url,user,password);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		try {
+			if(!con.isClosed())
+			    System.out.println("Succeeded connecting to the Database!");
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
     public int insert() {
     	
     	 int i = 0;
@@ -125,21 +146,27 @@ public class Jdbc {
         }
         return i;
     }
-    public void select(String sql) {
+    public String[][] select(String sql) {
     	
-			
+			String[][] st= new String[10][7];
 			Statement statement;
 			try {
 				statement = (Statement) con.createStatement();
 				//3.ResultSet类，用来存放获取的结果集！！
 	            ResultSet rs = statement.executeQuery(sql);
+	            int i=1;
+	            int j=0;
+	            int k=0;
 	            while(rs.next()){
-	                //获取stuname这列数据
 	                
-	                //获取stuid这列数据
-	                //id = rs.getString("ename");
-
-	                //输出结果
+	                st[j][k++]=rs.getString(i++);
+	                System.out.println(i);
+	                if(k==6) {
+	                	j++;
+	                	k=0;
+	                }
+	                
+	                
 	              
 	            }
 	            rs.close();
@@ -148,6 +175,7 @@ public class Jdbc {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
+			return st;
 			
             
     }
